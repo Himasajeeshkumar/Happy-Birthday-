@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Sree!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; font-family: 'Poppins', sans-serif; }
+    body { height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; }
+    .scene {
+      position: absolute; width: 100%; height: 100%; display: flex;
+      align-items: center; justify-content: center; flex-direction: column;
+      text-align: center; padding: 20px; background-size: cover; background-position: center;
+      color: white; transition: opacity 1s ease; opacity: 0; pointer-events: none;
+    }
+    .scene.visible { opacity: 1; pointer-events: all; }
+    button {
+      margin-top: 20px; padding: 12px 24px; font-size: 1rem;
+      border: none; border-radius: 12px; background-color: white; color: #ff4081;
+      font-weight: bold; cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background-color: #ff4081; color: white; }
+    h1 { font-family: 'Pacifico', cursive; font-size: 3rem; }
+    p { font-size: 1.2rem; margin-top: 10px; }
+    img { max-width: 80%; border-radius: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.3); margin-top: 20px; }
+    audio { display: none; }
+    .scrollable {
+      max-height: 60vh;
+      overflow-y: auto;
+      margin-top: 20px;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="scene0" class="scene visible" style="background: linear-gradient(#ff9a9e, #fad0c4);">
+    <h1>🎉 Happy Birthday Sree! 🎉</h1>
+    <p>Click to begin your birthday surprise journey!</p>
+    <button onclick="nextScene()">Let's Go</button>
+  </div>
+
+  <div id="scene1" class="scene" style="background: linear-gradient(to top right, #ff9a9e, #fecfef);">
+    <h1>🎂 Here’s Your Cake!</h1>
+    <p>Make a wish and smile big!</p>
+    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXBpd3hpdHdhbHpxdjN1emp6YXZkbXAwNHJlZjY0Mmd0Ync2ZGdvdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ySmLyvQJ8cogW6CadR/giphy.gif" alt="Birthday Cake">
+
+    <button onclick="nextScene()">Next</button>
+  </div>
+  
+  <div id="scene2" class="scene" style="background: linear-gradient(to bottom right, #a18cd1, #fbc2eb);">
+    <h1>💌 You're One of a Kind</h1>
+    <p>You're not just amazing, you're unforgettable.</p>
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbncxbmExc3RvODFxZW1raHQyYWhjZTd3cGw1MG52NXNtaDF4czU5bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vRebb6HyeIgvmQ8/giphy.gif" alt="Love Letter">
+
+    <button onclick="nextScene()">Next</button>
+  </div>
+  
+
+  <div id="scene3" class="scene" style="background:linear-gradient(to bottom right, #d1e7dd, #f8d7da);">
+    <h1>🎁 Here's a Surprise!</h1>
+    <p>Open it in your heart — it’s packed with love ❤️</p>
+    <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Gift">
+    <button onclick="nextScene()">Next</button>
+  </div>
+
+  <div id="scene4" class="scene" style="background: linear-gradient(#d299c2, #fef9d7); color: #333; overflow-y: auto;">
+    <h1>📸 A Letter Just for You</h1>
+    <p>Scroll down to read it...</p>
+    <img src="Sree.jpg" alt="Sree's Photo" width ="200px">
+    <div class="scrollable" style="max-width: 600px; background: white; color: #333; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+      <p><strong>Dear Sree,</strong></p>
+      <p>From the first laugh to every crazy memory, you’ve been the kind of friend everyone wishes they had. Today is your day, and I hope you feel surrounded by love, joy, and all the silly surprises that make life amazing.</p>
+      <p>You are not just growing older — you’re becoming wiser, kinder, and even more awesome (if that’s possible!).</p>
+      <p>Never forget how much you mean to those around you. You shine in your own way — and I’m truly lucky to be part of your story.</p>
+      <p><strong>Happy Birthday, Sree. Stay magical.</strong></p>
+      <p style="text-align: right;">With all my heart,<br><em>Your Best Friend<br>Hima</em></p>
+    </div>
+    <button onclick="restart()">Replay</button>
+  </div>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let current = 0;
+    const scenes = document.querySelectorAll('.scene');
+    const music = document.getElementById("bgMusic");
+
+    function nextScene() {
+      if (current < scenes.length - 1) {
+        scenes[current].classList.remove('visible');
+        current++;
+        scenes[current].classList.add('visible');
+      }
+    }
+
+    function restart() {
+      scenes[current].classList.remove('visible');
+      current = 0;
+      scenes[current].classList.add('visible');
+    }
+
+    document.body.addEventListener("click", () => {
+      if (music.paused) music.play();
+    });
+  </script>
+</body>
+</html>
