@@ -105,6 +105,39 @@
 
     document.body.addEventListener("click", () => {
       if (music.paused) music.play();
+      if (current < scenes.length - 1) {
+        current++;
+        showScene(current);
+      } else if (current === scenes.length - 1) {
+        // Final scene reached, allow replay
+        current = 0;
+        showScene(current);
+      }
+    });
+
+    const targetDate = new Date("2025-05-16T12:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        countdownEl.innerHTML = `🎂 Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        countdownEl.innerHTML = "🎉 3... 2... 1... 🎉";
+        document.getElementById("popperLeft").style.display = "block";
+        document.getElementById("popperRight").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("popperLeft").style.display = "none";
+          document.getElementById("popperRight").style.display = "none";
+        }, 5000);
+      }
+    }
+    setInterval(updateCountdown, 1000);
     });
   </script>
 </body>
