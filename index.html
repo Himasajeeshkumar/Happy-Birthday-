@@ -32,25 +32,12 @@
       margin-top: 20px;
       padding-right: 10px;
     }
-    #countdown { font-size: 2rem; margin-top: 20px; }
-    .popper {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background-image: url('https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif');
-      background-size: contain;
-      background-repeat: no-repeat;
-      z-index: 9999;
-    }
-    .left-popper { left: 0; top: 30%; transform: scaleX(-1); }
-    .right-popper { right: 0; top: 30%; }
   </style>
 </head>
 <body>
   <div id="scene0" class="scene visible" style="background: linear-gradient(#ff9a9e, #fad0c4);">
     <h1>🎉 Happy Birthday Sree! 🎉</h1>
     <p>Click to begin your birthday surprise journey!</p>
-    <div id="countdown"></div>
     <button onclick="nextScene()">Let's Go</button>
   </div>
 
@@ -58,17 +45,20 @@
     <h1>🎂 Here’s Your Cake!</h1>
     <p>Make a wish and smile big!</p>
     <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXBpd3hpdHdhbHpxdjN1emp6YXZkbXAwNHJlZjY0Mmd0Ync2ZGdvdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ySmLyvQJ8cogW6CadR/giphy.gif" alt="Birthday Cake">
+
     <button onclick="nextScene()">Next</button>
   </div>
-
-  <div id="scene2" class="scene" style= "backgroud: linear-gradient(to bottom right, #a18cd1, #fbc2eb);">
+  
+  <div id="scene2" class="scene" style="background: linear-gradient(to bottom right, #a18cd1, #fbc2eb);">
     <h1>💌 You're One of a Kind</h1>
     <p>You're not just amazing, you're unforgettable.</p>
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbncxbmExc3RvODFxZW1raHQyYWhjZTd3cGw1MG52NXNtaDF4czU5bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vRebb6HyeIgvmQ8/giphy.gif" alt="Love Letter">
+
     <button onclick="nextScene()">Next</button>
   </div>
+  
 
-  <div id="scene3" class="scene" style="backgroud: linear-gradient('to bottom right, #d1e7dd, #f8d7da')>
+  <div id="scene3" class="scene" style="background:linear-gradient(to bottom right, #d1e7dd, #f8d7da);">
     <h1>🎁 Here's a Surprise!</h1>
     <p>Open it in your heart — it’s packed with love ❤️</p>
     <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Gift">
@@ -85,23 +75,19 @@
       <p>You are not just growing older — you’re becoming wiser, kinder, and even more awesome (if that’s possible!).</p>
       <p>Never forget how much you mean to those around you. You shine in your own way — and I’m truly lucky to be part of your story.</p>
       <p><strong>Happy Birthday, Sree. Stay magical.</strong></p>
-      <p style="text-align: right;">With all my heart,<br><em>Your Best Friend</em></p>
+      <p style="text-align: right;">With all my heart,<br><em>Your Best Friend<br>Hima</em></p>
     </div>
     <button onclick="restart()">Replay</button>
   </div>
 
-  <div id="popperLeft" class="popper left-popper" style="display:none;"></div>
-  <div id="popperRight" class="popper right-popper" style="display:none;"></div>
-
   <audio id="bgMusic" autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_660f54bda5.mp3?filename=happy-birthday-to-you-12698.mp3" type="audio/mpeg">
+    <source src="birthday.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     let current = 0;
     const scenes = document.querySelectorAll('.scene');
     const music = document.getElementById("bgMusic");
-    const countdownEl = document.getElementById("countdown");
 
     function nextScene() {
       if (current < scenes.length - 1) {
@@ -120,31 +106,6 @@
     document.body.addEventListener("click", () => {
       if (music.paused) music.play();
     });
-
-    const targetDate = new Date("2025-05-16T12:00:00").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-
-      if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        countdownEl.innerHTML = `🎂 Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-      } else {
-        countdownEl.innerHTML = "🎉 3... 2... 1... 🎉";
-        document.getElementById("popperLeft").style.display = "block";
-        document.getElementById("popperRight").style.display = "block";
-        setTimeout(() => {
-          document.getElementById("popperLeft").style.display = "none";
-          document.getElementById("popperRight").style.display = "none";
-        }, 5000);
-      }
-    }
-
-    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
