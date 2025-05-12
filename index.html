@@ -1,249 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Sree!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Poppins', sans-serif;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; font-family: 'Poppins', sans-serif; }
+    body { height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; }
     .scene {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 20px;
-      background-size: cover;
-      background-position: center;
-      color: white;
-      transition: opacity 1s ease;
-      opacity: 0;
-      pointer-events: none;
+      position: absolute; width: 100%; height: 100%; display: flex;
+      align-items: center; justify-content: center; flex-direction: column;
+      text-align: center; padding: 20px; background-size: cover; background-position: center;
+      color: white; transition: opacity 1s ease; opacity: 0; pointer-events: none;
     }
-
-    .scene.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
-
+    .scene.visible { opacity: 1; pointer-events: all; }
     button {
+      margin-top: 20px; padding: 12px 24px; font-size: 1rem;
+      border: none; border-radius: 12px; background-color: white; color: #ff4081;
+      font-weight: bold; cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background-color: #ff4081; color: white; }
+    h1 { font-family: 'Pacifico', cursive; font-size: 3rem; }
+    p { font-size: 1.2rem; margin-top: 10px; }
+    img { max-width: 80%; border-radius: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.3); margin-top: 20px; }
+    audio { display: none; }
+    .scrollable {
+      max-height: 60vh;
+      overflow-y: auto;
       margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 12px;
-      background-color: white;
-      color: #ff4081;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+      padding-right: 10px;
     }
-
-    button:hover {
+    /* Confetti styles */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
       background-color: #ff4081;
-      color: white;
+      animation: confetti 3s infinite;
+      z-index: 100;
     }
-
-    h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 3rem;
+    .confetti:nth-child(odd) {
+      background-color: #4caf50;
     }
-
-    p {
-      font-size: 1.2rem;
-      margin-top: 10px;
+    .confetti:nth-child(even) {
+      background-color: #ffeb3b;
     }
-
-    img {
-      max-width: 80%;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      margin-top: 20px;
-    }
-
-    audio {
-      display: none;
-    }
-
-    /* Countdown Styling */
-    #countdownContainer {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    #countdown {
-      font-size: 5rem;
-      color: #ff4081;
-      font-weight: bold;
-    }
-
-    /* Popper Animation */
-    .popper {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      background-color: red;
-      border-radius: 50%;
-      opacity: 0;
-      animation: popper-animation 1s ease-in-out forwards;
-    }
-
-    .popper.left {
-      left: 0;
-      animation-delay: 0s;
-    }
-
-    .popper.right {
-      right: 0;
-      animation-delay: 0s;
-    }
-
-    @keyframes popper-animation {
-      0% {
-        width: 0;
-        height: 0;
-        opacity: 0;
-      }
-      50% {
-        width: 100px;
-        height: 100px;
-        opacity: 1;
-      }
-      100% {
-        width: 0;
-        height: 0;
-        opacity: 0;
-      }
-    }
-
-    /* Poppers Falling from Sides */
-    .falling-popper {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background-color: #ff4081;
-      border-radius: 50%;
-      opacity: 0;
-      animation: falling 2s forwards;
-    }
-
-    @keyframes falling {
-      0% {
-        opacity: 1;
-        top: -50px;
-      }
-      100% {
-        opacity: 0;
-        top: 90%;
-        transform: translateX(-50%);
-      }
+    @keyframes confetti {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
-
 <body>
-  <!-- Scene0: Countdown -->
   <div id="scene0" class="scene visible" style="background: linear-gradient(#ff9a9e, #fad0c4);">
-    <h1>🎂 Countdown to Sree's Birthday 🎂</h1>
-    <div id="countdownContainer">
-      <div id="countdown"></div>
-    </div>
+    <h1>🎉 Happy Birthday Sree! 🎉</h1>
+    <p>Click to begin your birthday surprise journey!</p>
+    <button onclick="nextScene()">Let's Go</button>
   </div>
 
-  <!-- Scene1: Birthday Image -->
   <div id="scene1" class="scene" style="background: linear-gradient(to top right, #ff9a9e, #fecfef);">
     <h1>🎂 Here’s Your Cake!</h1>
     <p>Make a wish and smile big!</p>
     <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXBpd3hpdHdhbHpxdjN1emp6YXZkbXAwNHJlZjY0Mmd0Ync2ZGdvdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ySmLyvQJ8cogW6CadR/giphy.gif" alt="Birthday Cake">
+
     <button onclick="nextScene()">Next</button>
   </div>
 
-  <!-- Background Music -->
+  <div id="scene2" class="scene" style="background: linear-gradient(to bottom right, #a18cd1, #fbc2eb);">
+    <h1>💌 You're One of a Kind</h1>
+    <p>You're not just amazing, you're unforgettable.</p>
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbncxbmExc3RvODFxZW1raHQyYWhjZTd3cGw1MG52NXNtaDF4czU5bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vRebb6HyeIgvmQ8/giphy.gif" alt="Love Letter">
+
+    <button onclick="nextScene()">Next</button>
+  </div>
+
+  <div id="scene3" class="scene" style="background:linear-gradient(to bottom right, #d1e7dd, #f8d7da);">
+    <h1>🎁 Here's a Surprise!</h1>
+    <p>Open it in your heart — it’s packed with love ❤️</p>
+    <img src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif" alt="Gift">
+    <button onclick="nextScene()">Next</button>
+  </div>
+
+  <div id="scene4" class="scene" style="background: linear-gradient(#d299c2, #fef9d7); color: #333; overflow-y: auto;">
+    <h1>📸 A Letter Just for You</h1>
+    <p>Scroll down to read it...</p>
+    <img src="Sree.jpg" alt="Sree's Photo" width ="200px">
+    <div class="scrollable" style="max-width: 600px; background: white; color: #333; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+      <p><strong>Dear Sree,</strong></p>
+      <p>From the first laugh to every crazy memory, you’ve been the kind of friend everyone wishes they had. Today is your day, and I hope you feel surrounded by love, joy, and all the silly surprises that make life amazing.</p>
+      <p>You are not just growing older — you’re becoming wiser, kinder, and even more awesome (if that’s possible!).</p>
+      <p>Never forget how much you mean to those around you. You shine in your own way — and I’m truly lucky to be part of your story.</p>
+      <p><strong>Happy Birthday, Sree. Stay magical.</strong></p>
+      <p style="text-align: right;">With all my heart,<br><em>Your Best Friend<br>Hima</em></p>
+    </div>
+    <button onclick="restart()">Replay</button>
+  </div>
+
   <audio id="bgMusic" autoplay loop>
-    <source src="birthday.mp3" type="audio/mpeg" />
+    <source src="birthday.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     let current = 0;
     const scenes = document.querySelectorAll('.scene');
     const music = document.getElementById("bgMusic");
-    const countdownElement = document.getElementById('countdown');
+    let countdownValue = 10; // Set your countdown value here
+    let countdownElement = document.createElement("p");
+    countdownElement.innerText = `Time left: ${countdownValue}s`;
+    document.body.appendChild(countdownElement);
 
-    // Set the target date for the countdown (Sree's Birthday, for example)
-    const targetDate = new Date("2025-05-16T00:00:00Z"); // Change to your actual target date
-
-    // Check if countdown has already ended and poppers have been triggered
-    const birthdayCelebrated = localStorage.getItem('birthdayCelebrated');
-
-    // Countdown function
     const countdownInterval = setInterval(() => {
-      // Get current time
-      const currentTime = new Date();
-
-      // Calculate remaining time
-      const timeLeft = targetDate - currentTime;
-
-      // If the countdown is over, stop the interval and trigger poppers
-      if (timeLeft <= 0 && !birthdayCelebrated) {
+      countdownValue--;
+      countdownElement.innerText = `Time left: ${countdownValue}s`;
+      if (countdownValue === 0) {
         clearInterval(countdownInterval);
-        localStorage.setItem('birthdayCelebrated', true);
-        countdownElement.innerHTML = "🎉 It's Your Birthday! 🎉";
-        triggerPoppers();
-        startMusic();
-      } else {
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        // Display the countdown
-        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        showConfetti(); // Trigger confetti when countdown reaches 0
       }
     }, 1000);
 
-    // Trigger the poppers animation
-    function triggerPoppers() {
-      const popperLeft = document.createElement('div');
-      const popperRight = document.createElement('div');
-      popperLeft.classList.add('falling-popper');
-      popperRight.classList.add('falling-popper');
-      document.body.appendChild(popperLeft);
-      document.body.appendChild(popperRight);
-    }
-
-    // Start music and transition to the next scene
-    function startMusic() {
-      if (music.paused) {
-        music.play();
-      }
-    }
-
-    // Transition between scenes
     function nextScene() {
       if (current < scenes.length - 1) {
         scenes[current].classList.remove('visible');
@@ -251,6 +127,29 @@
         scenes[current].classList.add('visible');
       }
     }
+
+    function restart() {
+      scenes[current].classList.remove('visible');
+      current = 0;
+      scenes[current].classList.add('visible');
+      countdownValue = 10; // Reset the countdown
+      countdownElement.innerText = `Time left: ${countdownValue}s`;
+    }
+
+    function showConfetti() {
+      const numConfetti = 100;
+      for (let i = 0; i < numConfetti; i++) {
+        const confettiPiece = document.createElement('div');
+        confettiPiece.classList.add('confetti');
+        confettiPiece.style.left = `${Math.random() * 100}vw`;
+        confettiPiece.style.animationDuration = `${Math.random() * 2 + 3}s`; // Random duration between 3s and 5s
+        document.body.appendChild(confettiPiece);
+      }
+    }
+
+    document.body.addEventListener("click", () => {
+      if (music.paused) music.play();
+    });
   </script>
 </body>
 </html>
