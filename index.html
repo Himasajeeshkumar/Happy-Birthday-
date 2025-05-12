@@ -37,15 +37,8 @@
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: #ff4081;
       animation: confetti 3s infinite;
       z-index: 100;
-    }
-    .confetti:nth-child(odd) {
-      background-color: #4caf50;
-    }
-    .confetti:nth-child(even) {
-      background-color: #ffeb3b;
     }
     @keyframes confetti {
       0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
@@ -137,10 +130,13 @@
     }
 
     function showConfetti() {
-      const numConfetti = 100;
+      const numConfetti = 200; // Increase the number of confetti pieces
+      const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#FFD433', '#33FFEB', '#9D33FF', '#FF8433'];
+
       for (let i = 0; i < numConfetti; i++) {
         const confettiPiece = document.createElement('div');
         confettiPiece.classList.add('confetti');
+        confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         confettiPiece.style.left = `${Math.random() * 100}vw`;
         confettiPiece.style.animationDuration = `${Math.random() * 2 + 3}s`; // Random duration between 3s and 5s
         document.body.appendChild(confettiPiece);
